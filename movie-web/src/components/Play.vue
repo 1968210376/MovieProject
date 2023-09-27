@@ -69,8 +69,8 @@ export default {
       Url: [],
       // Urls: []
       jieXi: [],
-      jiexi: 'http://v.anlhr.cn/?url=',
-      jieXiPlay: 'http://v.anlhr.cn/?url=',
+      jiexi: 'https://svip.bljiex.cc/?v=',
+      jieXiPlay: 'https://svip.bljiex.cc/?v=',
       videoPlayUrl: ''
 
     }

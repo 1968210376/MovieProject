@@ -16,7 +16,7 @@ Vue.use(VueAxios, axios)
 Vue.use(qs)
 
 // 设置基础URL为后端服务api地址，注：这里冒号里的，是后台服务器启动的端口地址
-axios.defaults.baseURL = 'http://101.43.253.237:39996/'
+axios.defaults.baseURL = ' http://127.0.0.1:3999'
 // 设置请求头，每次ajax请求携带token
 axios.interceptors.request.use(config => {
   config.headers.Authorization = window.sessionStorage.getItem('token')

@@ -2,11 +2,11 @@
   <div>
     <el-card class="box-card"
              v-for="(item,index) in videomenu"
-             :key="item.t_name"
-             :name="item.t_enname">
+             :key="item.type_name"
+             :name="item.type_en">
       <div slot="header"
            class="clearfix">
-        <span>{{item.t_name}}</span>
+        <span>{{item.type_name}}</span>
       </div>
       <el-row :gutter="20">
         <el-col :xs="12"
@@ -24,6 +24,7 @@
             <el-image v-bind:src="card.vod_pic"
                       :alt="card.vod_name"
                       :title="card.vod_name"
+                      lazy
                       @click="PlayVideo(card.vod_play_url)"></el-image>
             <div style="padding: 5px; height:20px;overflow:hidden;"
                  @click="PlayVideo(card.vod_play_url)">
@@ -55,8 +56,9 @@ export default {
       const { data: res } = await this.$axios.get('/my/video/videomenu')
       if (res.status !== 200) return this.$message.error(res.msg)
       this.videomenu = res.data
+      console.log(res.data)
       for (let index = 0; index < this.videomenu.length; index++) {
-        const { data: res } = await this.$axios.get(`/my/video/videobytype/${this.videomenu[index].t_id}/0/6`)
+        const { data: res } = await this.$axios.get(`/my/video/videobytype/${this.videomenu[index].type_id}/0/6`)
         if (res.status !== 200) return this.$message.error(res.msg)
         this.videolist[index] = res.data
         this.videolist.push({})

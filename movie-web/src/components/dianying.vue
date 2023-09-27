@@ -1,43 +1,46 @@
 <template>
   <div>
     <el-card class="box-card">
-      <div slot="header"
-           class="clearfix">
-        <span>{{this.activeName}}</span>
+      <div slot="header" class="clearfix">
+        <span>{{ this.activeName }}</span>
       </div>
       <el-row :gutter="20">
-        <el-col :xs="12"
-                :sm="8"
-                :md="4"
-                :lg="4"
-                :xl="4"
-                v-for="card in videoList"
-                :key="card.vod_id"
-                :name="card.vod_enname">
-
-          <el-card class="cards"
-                   :body-style="{ padding: '5px' }">
-
-            <el-image v-bind:src="card.vod_pic"
-                      :alt="card.vod_name"
-                      :title="card.vod_name"
-                      @click="PlayVideo(card.vod_play_url)"></el-image>
-            <div style="padding: 5px; height:20px;overflow:hidden;"
-                 @click="PlayVideo(card.vod_play_url)">
-              <span>{{card.vod_name}}</span>
+        <el-col
+          :xs="12"
+          :sm="8"
+          :md="4"
+          :lg="4"
+          :xl="4"
+          v-for="card in videoList"
+          :key="card.vod_id"
+          :name="card.vod_enname"
+        >
+          <el-card class="cards" :body-style="{ padding: '5px' }">
+            <el-image
+              v-bind:src="card.vod_pic"
+              :alt="card.vod_name"
+              :title="card.vod_name"
+              @click="PlayVideo(card.vod_play_url)"
+            ></el-image>
+            <div
+              style="padding: 5px; height:20px;overflow:hidden;"
+              @click="PlayVideo(card.vod_play_url)"
+            >
+              <span>{{ card.vod_name }}</span>
             </div>
           </el-card>
         </el-col>
-
       </el-row>
       <!-- 分页区域 -->
-      <el-pagination @size-change="handleSizeChange"
-                     @current-change="handleCurrentChange"
-                     :current-page="queryInfo.pagenum"
-                     :page-sizes="[12, 24, 36, 48, 100]"
-                     :page-size="queryInfo.pagesize"
-                     layout="total, sizes, prev, pager, next, jumper"
-                     :total="total">
+      <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="queryInfo.pagenum"
+        :page-sizes="[12, 24, 36, 48, 100]"
+        :page-size="queryInfo.pagesize"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="total"
+      >
       </el-pagination>
     </el-card>
   </div>
@@ -52,19 +55,17 @@ export default {
       videoList: [],
       total: 0,
       queryInfo: {
-
         // 当前页数
         pagenum: 1,
         // 当前每页显示条数
         pagesize: 12
       }
-
     }
   },
   created () {
-    this.activeId = window.sessionStorage.getItem('activeId')
-    this.activePath = window.sessionStorage.getItem('activePath')
-    this.activeName = window.sessionStorage.getItem('activeName')
+    this.activeId = window.localStorage.getItem('activeId')
+    this.activePath = window.localStorage.getItem('activePath')
+    this.activeName = window.localStorage.getItem('activeName')
     this.getVideoList()
   },
   methods: {
@@ -78,7 +79,10 @@ export default {
         Id = Id - 1
       }
       const typeId = Id
-      const { data: res } = await this.$axios.get(`/my/video/videobytype/${typeId}/${pagenums}/${pagesize}`)
+      console.log(typeId)
+      const { data: res } = await this.$axios.get(
+        `/my/video/videobytype/${typeId}/${pagenums}/${pagesize}`
+      )
       if (res.status !== 200) return this.$message.error(res.msg)
       this.videoList = res.data
       this.getTotal(typeId)
@@ -109,7 +113,6 @@ export default {
       this.$router.push({ path: '/play', query: { url: Urls } })
     }
   }
-
 }
 </script>
 <style lang="less" scoped>

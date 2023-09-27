@@ -65,6 +65,6 @@ app.use((err, req, res, next) => {
 });
 
 //调用 app.listen 方法，指定端口号并启动 web 服务器
-app.listen(39999, function () {
-  console.log("api server running at http://127.0.0.1:39999");
+app.listen(3999, function () {
+  console.log("api server running at http://127.0.0.1:3999");
 });
